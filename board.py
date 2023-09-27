@@ -1,6 +1,8 @@
+# importing files
 import random
 
 
+# Function to initialize the game board as a multidimensional array
 def start_game():
     # initialize empty 2d game board
     board = []
@@ -12,6 +14,7 @@ def start_game():
     return board
 
 
+# Function to print current board
 def print_board(board):
     for i in board:
         print(i)
