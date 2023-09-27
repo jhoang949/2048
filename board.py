@@ -1,6 +1,7 @@
 import random
 
-def startGame():
+
+def start_game():
     # initialize empty 2d game board
     board = []
     for i in range(4):
@@ -9,3 +10,8 @@ def startGame():
     board[random.randrange(4)][random.randrange(4)] = 2
     board[random.randrange(4)][random.randrange(4)] = 2
     return board
+
+
+def print_board(board):
+    for i in board:
+        print(i)

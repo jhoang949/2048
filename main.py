@@ -11,11 +11,10 @@ if __name__ == '__main__':
     print('"w" is up\n"a" is left\n"s" is down\n"d" is right\n\n')
 
     # initialize game board
-    game_board = board.startGame()
+    game_board = board.start_game()
 
     # print the game board
-    for i in game_board:
-        print(i)
+    board.print_board(game_board)
 
 
 
