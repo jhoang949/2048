@@ -107,6 +107,7 @@ def right_alg(game_board):
                 a[2] = a[1]
                 a[1] = a[0]
                 a[0] = 0
+            moved = True
         elif a[2] == a[1] and a[2] != 0:
             a[2] *= 2
             a[1] = a[0]
@@ -131,9 +132,46 @@ def up_alg(game_board):
     moved = False
 
     # Move all numbers up if possible
-
+    for i in range(4):
+        pos = 0
+        for j in range(4):
+            # If square is empty, it moves on
+            if game_board[j][i] == 0:
+                continue
+            # If square is not empty and is in the same position as the last empty position,
+            # move the empty position forward and continue
+            elif j == pos:
+                pos += 1
+                continue
+            # If square is not empty and is not in the same position as last empty position,
+            # move the value to the last empty position
+            else:
+                game_board[pos][i] = game_board[j][i]
+                game_board[j][i] = 0
+                pos += 1
+                moved = True
 
     # Compresses squares if they are similar in each array
+    for i in range(4):
+        if game_board[0][i] == game_board[1][i] and game_board[0][i] != 0:
+            game_board[0][i] *= 2
+            if game_board[2][i] == game_board[3][i]:
+                game_board[1][i] = game_board[2][i] * 2
+                game_board[2][i] = game_board[3][i] = 0
+            else:
+                game_board[1][i] = game_board[2][i]
+                game_board[2][i] = game_board[3][i]
+                game_board[3][i] = 0
+            moved = True
+        elif game_board[1][i] == game_board[2][i] and game_board[1][i] != 0:
+            game_board[1][i] *= 2
+            game_board[2][i] = game_board[3][i]
+            game_board[3][i] = 0
+            moved = True
+        elif game_board[2][i] == game_board[3][i] and game_board[2][i] != 0:
+            game_board[2][i] *= 2
+            game_board[3][i] = 0
+            moved = True
 
     # Adds square to the board if the board changed
     if moved:
@@ -149,8 +187,46 @@ def down_alg(game_board):
     moved = False
 
     # Move all numbers up if possible
+    for i in range(4):
+        pos = -1
+        for j in range(1, 5):
+            # If square is empty, it moves on
+            if game_board[-j][i] == 0:
+                continue
+            # If square is not empty and is in the same position as the last empty position,
+            # move the empty position forward and continue
+            elif -j == pos:
+                pos -= 1
+                continue
+            # If square is not empty and is not in the same position as last empty position,
+            # move the value to the last empty position
+            else:
+                game_board[pos][i] = game_board[-j][i]
+                game_board[-j][i] = 0
+                pos -= 1
+                moved = True
 
     # Compresses squares if they are similar in each array
+    for i in range(4):
+        if game_board[3][i] == game_board[2][i] and game_board[3][i] != 0:
+            game_board[3][i] *= 2
+            if game_board[1][i] == game_board[0][i]:
+                game_board[2][i] = game_board[1][i] * 2
+                game_board[1][i] = game_board[0][i] = 0
+            else:
+                game_board[2][i] = game_board[1][i]
+                game_board[1][i] = game_board[0][i]
+                game_board[0][i] = 0
+            moved = True
+        elif game_board[2][i] == game_board[1][i] and game_board[2][i] != 0:
+            game_board[2][i] *= 2
+            game_board[1][i] = game_board[0][i]
+            game_board[0][i] = 0
+            moved = True
+        elif game_board[1][i] == game_board[0][i] and game_board[1][i] != 0:
+            game_board[1][i] *= 2
+            game_board[0][i] = 0
+            moved = True
 
     # Adds square to the board if the board changed
     if moved:
